@@ -2,7 +2,7 @@
   "name": "multipart-formdata",
   "version": "1.1.0",
   "description": "A zero-dependency multipart/form-data parser",
-  "main": "multipart.js",
+  "main": "app.js",
   "author": "Cristian Salazar (christiansalazarh@gmail.com)",
   "license": "MIT",
   "scripts": {

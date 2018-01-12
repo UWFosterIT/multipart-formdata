@@ -1,4 +1,4 @@
-# parse-multipart
+# multipart-formdata
 
 A zero-dependency multipart/form-data parser.
 
@@ -7,12 +7,13 @@ A zero-dependency multipart/form-data parser.
 Sometimes you only have access to the raw multipart payload and need it to be
 parsed in order to extract files or data.
 
-Example: Using a serverless api such as using `Claudia-api-builder` with AWS Api-Gateway/Lambda.
+Example: Using a serverless api such as `claudia-api-builder` with AWS Api-Gateway/Lambda.
 
 The raw payload formatted as multipart/form-data will looks like this one:
 
-```javascript
+```
 // req.body
+
 ------WebKitFormBoundaryDtbT5UpPj83kllfw
 Content-Disposition: form-data; name="uploads"; filename="somebinary.dat"
 Content-Type: application/octet-stream
@@ -56,12 +57,17 @@ hello how are you
 	var boundary = "----WebKitFormBoundaryDtbT5UpPj83kllfw";
 	var parts = multipart.parse(body, boundary);
 
-	for(var i=0; i < parts.length; i++) {
-		var part = parts[i];
-		// will be:
-		// { filename: 'A.txt', type: 'text/plain',
-		//		data: <Buffer 41 41 41 41 42 42 42 42> }
-	}
+  /*
+  console.log(parts);
+
+	[{
+		data:     <Buffer 41 41 41 41 42 42 42 42>,
+		field:    '',
+		filename: 'A.txt',
+		name:     'file',
+		type:     'text/plain',
+	}, ...];
+	*/
 ```
 
-The returned data is an array of objects, each with a filename, type and data properties. The data prop is a Buffer (see also Node Buffer).
+The returned data is an array of objects, each with a filename, any data fields, field name, content-type and data properties. The data prop is a Buffer (see also Node Buffer).

@@ -4,14 +4,16 @@ exports.parse = (multipartBuffer, boundary) => {
     let headers = file.header.split('; ');
     return {
       data:     new Buffer(file.part),
-      filename: headers[2].split('"')[1],
+      field:    file.field,
+      filename: headers[2] ? headers[2].split('"')[1] : '',
       name:     headers[1].split('"')[1],
-      type:     file.info.split(': ')[1]
+      type:     file.info ? file.info.split(': ')[1] : false
     };
   };
 
   let lastline = '';
   let header   = '';
+  let field    = '';
   let info     = '';
   let state    = 0;
   let buffer   = [];
@@ -41,6 +43,7 @@ exports.parse = (multipartBuffer, boundary) => {
       lastline = '';
       state    = 3;
     } else if ((3 === state) && newLineDetected) {
+      field    = lastline;
       buffer   = [];
       lastline = '';
       state    = 4;
@@ -54,6 +57,7 @@ exports.parse = (multipartBuffer, boundary) => {
         let part = buffer.slice(0, j - 1);
 
         files.push(process({
+          field:  field,
           header: header,
           info:   info,
           part:   part
