@@ -1,16 +1,12 @@
 exports.parse = (multipartBuffer, boundary) => {
 
   let process = file => {
-    let headers     = file.header.split(';');
-    let fileHeader  = headers[2].split('=');
-    let filename    = JSON.parse(fileHeader[1].trim());
-    let contentType = file.info.split(':')[1].trim();
-    let data        = new Buffer(file.part);
-
+    let headers = file.header.split('; ');
     return {
-      data:     data,
-      filename: filename,
-      type:     contentType
+      data:     new Buffer(file.part),
+      filename: headers[2].split('"')[1],
+      name:     headers[1].split('"')[1],
+      type:     file.info.split(': ')[1]
     };
   };
 
@@ -81,4 +77,7 @@ exports.parse = (multipartBuffer, boundary) => {
   return files;
 };
 
-exports.getBoundary = header => header.split('; boundary=')[1];
+exports.getBoundary = header => {
+  header = header['Content-Type'] ? header['Content-Type'] : header;
+  return header.split('; boundary=')[1];
+};

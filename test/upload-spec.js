@@ -11,7 +11,7 @@ describe('Upload tests', () => {
     let boundary = '--------------------------726963471261442896443806';
 
     let body = `--${boundary}\r\n`;
-    body += `Content-Disposition: form-data; name="image"; filename="${filename}"\r\n`;
+    body += `Content-Disposition: form-data; name="file"; filename="${filename}"\r\n`;
     body += 'Content-Type: text/plain\r\n';
     body += '\r\n';
     body += fs.readFileSync(`test/${filename}`);
@@ -30,6 +30,7 @@ describe('Upload tests', () => {
     expect(parts.length).to.eql(1);
     expect(parts[0].filename).to.eql(filename);
     expect(parts[0].type).to.eql('text/plain');
+    expect(parts[0].name).to.eql('file');
   });
 
 });
