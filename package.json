@@ -1,24 +1,31 @@
 {
-  "name": "parse-multipart",
-  "version": "1.0.0004",
-  "description": "A javascript/nodejs multipart/form-data parser which operates on raw data.",
+  "name": "multipart-formdata",
+  "version": "1.1.0",
+  "description": "A zero-dependency multipart/form-data parser",
   "main": "multipart.js",
   "author": "Cristian Salazar (christiansalazarh@gmail.com)",
   "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --bail --reporter dot --timeout 10000 ./test/*-spec.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/freesoftwarefactory/parse-multipart.git"
+    "url": "git+https://github.com/UWFosterIT/multipart-formdata.git"
   },
   "keywords": [
     "multipart/form-data",
+    "multipart",
+    "form-data",
     "form",
-    "fileuploader"
+    "fileuploader",
+    "upload"
   ],
   "bugs": {
-    "url": "https://github.com/freesoftwarefactory/parse-multipart/issues"
+    "url": "https://github.com/UWFosterIT/multipart-formdata/issues"
   },
-  "homepage": "https://github.com/freesoftwarefactory/parse-multipart#readme"
+  "homepage": "https://github.com/UWFosterIT/multipart-formdata#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.1.0"
+  }
 }
